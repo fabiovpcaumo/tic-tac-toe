@@ -26,11 +26,11 @@ const diagonal2 = ['0x2', '1x1', '2x0'];
 
 function start() {
     var board = document.getElementById("gameBoard");
-    document.getElementById("log-text").value = ""; //Limpa o log
 
     if (checkPlayerForm() === true && gameOn === false){ //se o formulário estiver ok e o jogo estiver parado
         gameOn = true;
-        sortearPrimeiroJogador();                                       //define o primeiro jogador
+        sortearPrimeiroJogador();                                               //define o primeiro jogador
+        document.getElementById("log-text").value = "";                         //Limpa o log
         if (board.style.display === "none" || board.style.display === '') {     //verifica se o jogo está visivel
             board.style.display = "block";
         } else {
@@ -40,25 +40,25 @@ function start() {
 };
 
 function checkPlayerForm(){
-    let player1 = document.getElementById("username1").value;           //pega o nome dos usuarios no
-    let player2 = document.getElementById("username2").value;           //formulário
+    let player1 = document.getElementById("username1").value;                   //pega o nome dos usuarios no
+    let player2 = document.getElementById("username2").value;                   //formulário
 
-    if (player1 === '' || player2 === ''){                              //verifica se o formulario
-        alert("Preencha o nome dos jogadores!");                        //está vazio
+    if (player1 === '' || player2 === ''){                                      //verifica se o formulario
+        alert("Preencha o nome dos jogadores!");                                //está vazio
         return false;
     }
     if (gameOn === true){
         alert("O jogo já está acontecendo!");
         return false;
     }
-        game.player1 = player1;                                         //salva o nome dos jogadores
+        game.player1 = player1;                                                 //salva o nome dos jogadores
         game.player2 = player2;
 
         return true;
 }
 
-function restart(){                                                    //transforma os valores em
-    game.atual = "",                                                   //seus valores iniciais
+function restart(){                                                             //transforma os valores em
+    game.atual = "",                                                            //seus valores iniciais
     game.player1 = "",
     game.player2 = "",
     game.vencedor = "",
@@ -96,7 +96,7 @@ function sortearPrimeiroJogador(){
 }
 
 function mark(id){
-    if (game.atual === game.player1){                   //Verifica se o jogador atual é o jogador 1
+    if (game.atual === game.player1){                                   //Verifica se o jogador atual é o jogador 1
         $('#' + id).html(game.player1Icon);
         $('#' + id).removeAttr('onclick');
         game.housesPlayer1.push(id);
@@ -117,6 +117,7 @@ function mark(id){
 
 function checkVictory(){                                //Checa as win conditions do jogo
     
+    //Checa se o jogador 1 se encaixa nas win conditions
     if(horizontal1.every(value => game.housesPlayer1.includes(value)) === true){
         game.vencedor = game.player1;
         winner(game.vencedor);
@@ -143,6 +144,7 @@ function checkVictory(){                                //Checa as win condition
         winner(game.vencedor);
     }
 
+    //Checa se o jogador 2 se encaixa nas win conditions
     if(horizontal1.every(value => game.housesPlayer2.includes(value)) === true){
         game.vencedor = game.player2;
         winner(game.vencedor);
@@ -187,7 +189,7 @@ function registrarJogada(player, casa, turno){
     console.log("Jogador 2: " + game.housesPlayer2 + ".\n")
 }
 
-function registrarFinal(player){
+function registrarFinal(player){        //Registra o evento no log
     if(game.vencedor != ""){
         document.getElementById("log-text").value += "O jogador " + player + " saiu vitorioso!\nAo vencedor, as batatas.";
     }else{
@@ -196,13 +198,15 @@ function registrarFinal(player){
     
 }
 
-function winner(player){
+function winner(player){                //Termina o jogo e parabeniza o vencedor.
     alert("O jogador " + player + " saiu vitorioso! \nParabéns, " + player + ".");
     registrarFinal(player);
     $('.house').removeAttr('onclick');
+    gameOn = false;
 }
 
-function draw(){
+function draw(){                        //Termina o jogo e declara empate.
     alert("O jogo empatou!\n");
     registrarFinal();
+    gameOn = false;
 }
