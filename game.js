@@ -22,7 +22,7 @@ const vertical2 = ['0x1', '1x1', '2x1'];
 const vertical3 = ['0x2', '1x2', '2x2'];
 
 const diagonal1 = ['0x0', '1x1', '2x2'];
-const diagonal2 = ['0x2', '1x1', '2x1'];
+const diagonal2 = ['0x2', '1x1', '2x0'];
 
 function start() {
     var board = document.getElementById("gameBoard");
@@ -92,7 +92,7 @@ function sortearPrimeiroJogador(){
         game.player1Icon = '<span class="far fa-circle"></span>';
     }
 
-    registrarLog(game.atual);
+    registrarComeco(game.atual);
 }
 
 function mark(id){
@@ -168,11 +168,15 @@ function checkVictory(){                                //Checa as win condition
         game.vencedor = game.player2;
         winner(game.vencedor);
     }
+
+    if(game.turno == 8 && game.vencedor == ""){
+        draw();
+    }
     
     console.log("Ainda não houve vencedor.");
 }
 
-function registrarLog(player){
+function registrarComeco(player){
     document.getElementById("log-text").value += "O primeiro jogador é: " + player + ".\n";
     document.getElementById("log-text").value += "O jogador 1 será o X, o jogador 2 será o O.\n";
 }
@@ -183,7 +187,22 @@ function registrarJogada(player, casa, turno){
     console.log("Jogador 2: " + game.housesPlayer2 + ".\n")
 }
 
+function registrarFinal(player){
+    if(game.vencedor != ""){
+        document.getElementById("log-text").value += "O jogador " + player + " saiu vitorioso!\nAo vencedor, as batatas.";
+    }else{
+        document.getElementById("log-text").value += "O jogo empatou!\n";
+    }
+    
+}
+
 function winner(player){
     alert("O jogador " + player + " saiu vitorioso! \nParabéns, " + player + ".");
+    registrarFinal(player);
     $('.house').removeAttr('onclick');
+}
+
+function draw(){
+    alert("O jogo empatou!\n");
+    registrarFinal();
 }
