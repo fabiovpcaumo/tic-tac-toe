@@ -191,7 +191,7 @@ function registrarJogada(player, casa, turno){
 
 function registrarFinal(player){        //Registra o evento no log
     if(game.vencedor != ""){
-        document.getElementById("log-text").value += "O jogador " + player + " saiu vitorioso!\nAo vencedor, as batatas.";
+        document.getElementById("log-text").value += "O jogador " + player + " saiu vitorioso!\n";
     }else{
         document.getElementById("log-text").value += "O jogo empatou!\n";
     }

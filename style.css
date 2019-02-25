@@ -20,4 +20,22 @@ h1 {
     background-color: #f49e42;
   }
 
+  .grid-container{
+    display: grid;
+    grid-column-gap: 40px;
+    grid-row-gap: 10px;
+  }
+
+  .grid-button{
+    grid-row: 2;
+  }
+
+  .left-col{
+    float: left;
+    width: 75%;
+  }
+
+  .right-col{
+    float: right;
+  }
 /* https://codepen.io/xunnn/pen/yEmMbm */
