@@ -184,5 +184,6 @@ function registrarJogada(player, casa, turno){
 }
 
 function winner(player){
-    alert("O jogador " + player + "é vitorioso! \nParabéns, " + player + ".");
+    alert("O jogador " + player + " saiu vitorioso! \nParabéns, " + player + ".");
+    $('.house').removeAttr('onclick');
 }
